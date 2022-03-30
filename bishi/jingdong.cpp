@@ -2,7 +2,7 @@
 #include<vector>
 #include<algorithm>
 using namespace std;
-
+//test
 int main(){
     int T;
     cin >> T;
