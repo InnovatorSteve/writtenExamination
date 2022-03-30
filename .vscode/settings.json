@@ -8,6 +8,7 @@
         "iostream": "cpp",
         "list": "cpp",
         "xhash": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "*.tcc": "cpp"
     }
 }

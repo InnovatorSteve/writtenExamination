@@ -3,7 +3,7 @@
 #include<vector>
 #include<algorithm>
 using namespace std;
-
+//buzhidao
 void solution1(int n){
     for(int i = 1; i <= n; ++i){
         int x = i;

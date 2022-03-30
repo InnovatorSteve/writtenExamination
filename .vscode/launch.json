@@ -8,7 +8,9 @@
             "name": "g++.exe - 生成和调试活动文件",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            //"program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "F:/programing/c++/code/exe/a.exe",
+            
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
