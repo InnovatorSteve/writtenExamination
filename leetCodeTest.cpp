@@ -1,49 +1,50 @@
 #include<iostream>
 #include<string>
 #include<stack>
+#include<vector>
 #include<unordered_map>
+#include<unordered_set>
+#include<algorithm>
+#include<numeric>
+#include<random>
+#include<sys/time.h>
+#include<ctime>
 
 using namespace std;
 
+#define BUCKETSIZE 10
 class Solution {
 public:
-    stack<char> opt;
-    stack<int> nums;
-    unordered_map<char, int> optPri = {{'+', 1}, {'-', 1}, {'*', 2}, {'/', 2}};
-    int calculate(string s) {
-        for(int i = 0; i < s.size(); ++i){
-            if(s[i] == ' ') continue;
-            if(isdigit(s[i])){
-                int num = 0;
-                while(isdigit(s[i])) num = num * 10 + s[i++] - '0';
-                nums.push(num); --i;
-            }else if(s[i] == '(') opt.push(s[i]);
-            else if(s[i] == ')'){
-                while(!opt.empty() && opt.top() != '(') eval();
-                opt.pop();
-            }else{
-                while(!opt.empty() && optPri[opt.top()] > optPri[s[i]]) eval();
-                opt.push(s[i]);
+    vector<int> sortArray(vector<int>& nums) {
+        int minNum = *min_element(nums.begin(), nums.end());
+        int maxNum = *max_element(nums.begin(), nums.end());
+        int bucketCnt = (maxNum - minNum) / 10;
+        vector<vector<int>> bucket(bucketCnt + 1);
+        for(auto& num : nums){
+            int index = (num - minNum) / 10;
+            if(bucket[index].empty()) bucket[index].emplace_back(num);
+            for(int i = 0; i < bucket[index].size(); ++i) {
+                if(num > bucket[index][i]){
+                    bucket[index].insert(bucket[index].begin() + i + 1, num);
+                    break;
+                }
             }
         }
-        while(!opt.empty()) eval();
-        return nums.top();
-    }
-    void eval(){
-        int num1 = nums.top(); nums.pop();
-        int num2 = nums.top(); nums.pop();
-        if(opt.top() == '+') nums.push(num2 + num1);
-        else if(opt.top() == '-') nums.push(num2 - num1);
-        if(opt.top() == '*') nums.push(num2 * num1);
-        if(opt.top() == '/') nums.push(num2 / num1);
-        opt.pop();
+        int index = 0;
+        for(auto& line : bucket){
+            for(auto& num : line)
+                nums[index++] = num;
+        }
+        return nums;
     }
 };
 
 int main(){
+    clock_t startTime = clock();
+    vector<int> nums{5,1,1,2,0,0};
     Solution s;
-    cout << s.optPri['('] << endl;
-    string str = "1*2-3/4+5*6-7*8+9/10";
-    int ans = s.calculate(str);
-    cout << ans;
+    s.sortArray(nums);
+    clock_t endTime = clock();
+    cout << (double)(endTime - startTime) / CLOCKS_PER_SEC;
+    return 0;
 }

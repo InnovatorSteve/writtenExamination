@@ -102,6 +102,15 @@
 //     }
 //     return 0;
 // }
+// 6
+// 16=1+2*3
+//  7*8*9=54
+//  1+1=1+22 
+// 4*6=22+2 
+// 15+7=1+2 
+// 11+1=1+5
+//给定个数
+//方程 是否可以通过在某位添加0-9 使得等式成立 成立输出Yes 否则输出No
 
 #include<iostream>
 #include<unordered_map>
@@ -112,7 +121,7 @@ using namespace std;
 
 stack<char> opt;
 stack<int> nums;
-unordered_map<char, int> priOpt = {{'+', 1}, {'-', 1}, {'*', 2}, {'/', 2}};//未定义(  获取时返回0  复合逻辑上计算到(停止
+unordered_map<char, int> priOpt = {{'+', 1}, {'-', 1}, {'*', 2}, {'/', 2}};//未定义(  获取时返回0  符合逻辑上计算到(停止
 
 void calHouZhui(){
     int num1 = nums.top(); nums.pop();
